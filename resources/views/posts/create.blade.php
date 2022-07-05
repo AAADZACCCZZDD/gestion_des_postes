@@ -14,5 +14,17 @@
             <input type="text" class="form-control" id="pwd" placeholder="Enter content" name="content">
         </div>
         <button type="submit" class="btn btn-primary">Add post</button>
+
+        @if ($errors->any())
+            <ul">
+                @foreach ($errors->all() as $error)
+                    <li>
+                        {{$error}} 
+                    </li>
+                @endforeach
+
+            </ul>
+        @endif
+
     </form>
 @endsection
