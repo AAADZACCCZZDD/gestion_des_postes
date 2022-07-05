@@ -45,7 +45,6 @@ class PostController extends Controller
         $post->active = true;
         $post->save();
         return redirect()->route('posts.show', ['post'=> $post->id]);
-        
     }
 
     /**
@@ -69,7 +68,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('posts.edit',[
+            'post'=>Post::findOrFail($id)
+        ]);
     }
 
     /**
@@ -81,7 +82,13 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post=Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->slug = "-";
+        $post->active = true;
+        $post->save();
+        return redirect()->route('posts.show', ['post'=> $post->id]);
     }
 
     /**

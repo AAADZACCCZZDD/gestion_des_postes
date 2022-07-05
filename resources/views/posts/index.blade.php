@@ -7,7 +7,8 @@
         @forelse ($posts as $post)
             <li>
                 {{ $post->id }}
-                <a href="{{route('posts.show', $post->id)}}">{{ $post->title }}</a> 
+                <a href="{{route('posts.show', $post->id)}}">{{ $post->title }}</a> <br>
+                <button class="btn btn-warning"><a href=" {{route('posts.edit', ['post'=>$post->id])}} ">Edit</a> </button>
             </li>
 
         @empty
