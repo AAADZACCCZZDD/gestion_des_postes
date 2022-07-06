@@ -45,7 +45,7 @@ class PostController extends Controller
         $post->slug = "-";
         $post->active = true;
         $post->save();
-        $request->session()->flash('create','the post was created succussfuly');
+        $request->session()->flash('create','The post was created successfully');
         return redirect()->route('posts.show', ['post'=> $post->id]);
     }
 
@@ -90,6 +90,7 @@ class PostController extends Controller
         $post->slug = "-";
         $post->active = true;
         $post->save();
+        $request->session()->flash('update','The post was updated successfully');
         return redirect()->route('posts.show', ['post'=> $post->id]);
     }
 
@@ -99,10 +100,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $post=Post::findOrFail($id);
         $post->delete();
+        $request->session()->flash('delete','The post was deleted successfully');
         return redirect()->route('posts.index');
     }
 }
