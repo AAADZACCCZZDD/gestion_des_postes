@@ -45,6 +45,7 @@ class PostController extends Controller
         $post->slug = "-";
         $post->active = true;
         $post->save();
+        $request->session()->flash('create','the post was created succussfuly');
         return redirect()->route('posts.show', ['post'=> $post->id]);
     }
 

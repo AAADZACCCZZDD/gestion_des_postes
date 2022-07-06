@@ -27,17 +27,30 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('posts.index')}}">index</a>
+                    <a class="nav-link" href="{{ route('posts.index') }}">index</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href=" {{route('posts.create')}} ">create</a>
+                    <a class="nav-link" href=" {{ route('posts.create') }} ">create</a>
                 </li>
-                
-                
+
+
             </ul>
-            
+
         </div>
     </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8 m-auto text-center">
+                @if (session()->has('create'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('create') }}
+                </div>
+            @endif
+            </div>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="row">
             <div class="col-12">

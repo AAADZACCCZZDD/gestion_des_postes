@@ -16,13 +16,12 @@
         <button type="submit" class="btn btn-primary">Add post</button>
 
         @if ($errors->any())
-            <ul">
+            <ul>
                 @foreach ($errors->all() as $error)
                     <li>
                         {{$error}} 
                     </li>
                 @endforeach
-
             </ul>
         @endif
 
