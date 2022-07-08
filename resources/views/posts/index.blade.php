@@ -5,7 +5,7 @@
 
     <ul>
         @forelse ($posts as $post)
-            <li class="list-group-item " style="background-color: rgb(229, 223, 215)">
+            <li class="list-group-item m-1" style="background-color: rgb(229, 223, 215)">
                 <span class="badge bg-secondary">Id: {{ $post->id }}</span><br>
                 <a href="{{ route('posts.show', $post->id) }}">Title : {{ $post->title }}</a> <br>
                 <p>Content : {{ $post->content }}</p>
