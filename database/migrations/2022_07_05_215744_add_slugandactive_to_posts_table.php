@@ -14,8 +14,8 @@ class AddSlugandactiveToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('slug');
-            $table->boolean('active');
+            $table->string('slug')->default('none');
+            $table->boolean('active')->default(false);
         });
     }
 
