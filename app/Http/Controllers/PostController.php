@@ -120,4 +120,11 @@ class PostController extends Controller
         $request->session()->flash('restore','The post was restored successfully');
         return redirect()->route('posts.index');
     }
+
+    public function forcedelete(Request $request, $id){
+        $post=Post::onlyTrashed()->where('id', $id)->first();
+        $post->forceDelete();
+        $request->session()->flash('forcedelete','The post was outright delete successfully');
+        return redirect()->route('posts.index');
+    }
 }

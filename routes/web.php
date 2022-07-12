@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::patch('/posts/{id}/restore', [PostController::class, 'restore']);
+Route::delete('/posts/{id}/forcedelete', [PostController::class, 'forcedelete']);
 Route::resource('/posts', PostController::class);
 Auth::routes();
 

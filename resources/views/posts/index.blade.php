@@ -35,13 +35,13 @@
                     @method('patch')
                     <button type="submit" class="btn btn-warning" style="display: inline">restore</button>
                 </form>
+                <form action="{{url('/posts/'. $post->id. '/forcedelete')}} " method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-dark mt-2" >Outright delete</button>
+                </form>
                     
-                    {{-- <form style="display: inline" action=" {{ route('posts.destroy', ['post' => $post->id]) }} "
-                        method="post">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-danger" type="submit">Force Delete</button>
-                    </form> --}}
+                    
                 @endif
             </li>
         @empty
