@@ -19,8 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts=Post::withTrashed()->orderBy('updated_at','desc')->get();
         return view('posts.index',[
-            'posts'=>Post::all()
+            'posts'=>$posts
         ]);
     }
 
@@ -44,6 +45,7 @@ class PostController extends Controller
     {
         // 
         $post=new Post();
+        $post->user_id = $request->user()->id;
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->slug = "-";
@@ -109,6 +111,13 @@ class PostController extends Controller
         $post=Post::findOrFail($id);
         $post->delete();
         $request->session()->flash('delete','The post was deleted successfully');
+        return redirect()->route('posts.index');
+    }
+
+    public function restore(Request $request, $id){
+        $post=Post::onlyTrashed()->where('id', $id)->first();
+        $post->restore();
+        $request->session()->flash('restore','The post was restored successfully');
         return redirect()->route('posts.index');
     }
 }

@@ -99,9 +99,14 @@
                         {{ session('delete') }}
                     </div>
                 @endif
-                {{-- @if (session()->has('create'))
+                @if (session()->has('restore'))
+                    <div class="alert alert-secondary" role="alert">
+                        {{ session('restore') }}
+                    </div>
+                @endif
+                {{-- @if (session()->has('forcedelete'))
                     <div class="alert alert-success" role="alert">
-                        {{ session('create') }}
+                        {{ session('forcedelete') }}
                     </div>
                 @endif --}}
             </div>

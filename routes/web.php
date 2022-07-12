@@ -18,7 +18,7 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::patch('/posts/{id}/restore', [PostController::class, 'restore']);
 Route::resource('/posts', PostController::class);
 Auth::routes();
 
