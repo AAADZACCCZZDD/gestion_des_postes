@@ -16,4 +16,17 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     } 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Post $post){
+            $post->comment()->delete();
+        });
+
+        static::restoring(function(Post $post){
+            $post->comment()->restore();
+        });
+    }
 }
