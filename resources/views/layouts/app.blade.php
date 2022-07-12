@@ -45,9 +45,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav mr-auto mx-5">
+                        <li class="nav-item active">
+                            <a class="nav-link mx-2" href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2" href="{{ route('posts.index') }}">index</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2" href=" {{ route('posts.create') }} ">create</a>
+                        </li>
                     </ul>
+                    
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

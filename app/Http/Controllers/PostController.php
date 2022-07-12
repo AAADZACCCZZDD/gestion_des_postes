@@ -43,8 +43,8 @@ class PostController extends Controller
      */
     public function store(PostCreateRequest $request)
     {
-        // 
         $post=new Post();
+        $this->authorize('create', $post);
         $post->user_id = $request->user()->id;
         $post->title = $request->input('title');
         $post->content = $request->input('content');
@@ -91,6 +91,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post=Post::findOrFail($id);
+        $this->authorize('update', $post);
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->slug = "-";
@@ -109,6 +110,7 @@ class PostController extends Controller
     public function destroy(Request $request,$id)
     {
         $post=Post::findOrFail($id);
+        $this->authorize('delete', $post);
         $post->delete();
         $request->session()->flash('delete','The post was deleted successfully');
         return redirect()->route('posts.index');
@@ -116,6 +118,7 @@ class PostController extends Controller
 
     public function restore(Request $request, $id){
         $post=Post::onlyTrashed()->where('id', $id)->first();
+        $this->authorize('restore', $post);
         $post->restore();
         $request->session()->flash('restore','The post was restored successfully');
         return redirect()->route('posts.index');
@@ -123,8 +126,11 @@ class PostController extends Controller
 
     public function forcedelete(Request $request, $id){
         $post=Post::onlyTrashed()->where('id', $id)->first();
+        $this->authorize('forcedelete', $post);
         $post->forceDelete();
         $request->session()->flash('forcedelete','The post was outright delete successfully');
         return redirect()->route('posts.index');
     }
+
+    
 }
