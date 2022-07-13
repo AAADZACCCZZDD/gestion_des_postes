@@ -19,17 +19,14 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     } 
 
-    public function scopeDernier(Builder $builder)
-    {
-        return $builder->orderBy(static::UPDATED_AT, 'asc');
-    }
+    // public function scopeDernier(Builder $builder)
+    // {
+    //     return $builder->orderBy(static::UPDATED_AT, 'asc');
+    // }
 
     // public static function boot()
     // {
     //     parent::boot();
-
-    //     static::addGlobalScope(new LatestScope);
-
-        
+    //     static::addGlobalScope(new LatestScope);        
     // }
 }

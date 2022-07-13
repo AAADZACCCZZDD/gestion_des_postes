@@ -67,8 +67,8 @@ class PostController extends Controller
     {
         return view('posts.show',[
             'post'=>Post::findOrFail($id),
-            // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get(),
-            'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
+            'comments'=>DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'asc')->get(),
+            // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
         ]);
     }
 
