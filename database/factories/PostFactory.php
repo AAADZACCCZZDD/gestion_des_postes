@@ -16,6 +16,8 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'content' => $this->faker->text(),
+            'created_at' => $this->faker->dateTimeBetween('-3 years'),
+            'updated_at' => $this->faker->dateTimeBetween('-3 months'),
         ];
     }
 }

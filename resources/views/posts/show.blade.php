@@ -10,11 +10,16 @@
         <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
     @endif
 
-    <button class="btn btn-warning" style="display: inline"><a
-            href=" {{ route('posts.edit', ['post' => $post->id]) }} ">Edit</a> </button>
-    <form style="display: inline" action=" {{ route('posts.destroy', ['post' => $post->id]) }} " method="post">
-        @csrf
-        @method('delete')
-        <button class="btn btn-danger" type="submit">Delete</button>
-    </form>
+
+    <ul>
+        @forelse($comments as $comment)
+            <li>
+                <p>{{ $comment->content }}</p>
+                {{-- <p class="text-muted">Created at {{ $comment->created_at }} </p> --}}
+                <p class="text-muted">Updated at {{ $comment->updated_at }} </p>
+            </li>
+        @empty
+            <p>no comment exist</p>
+        @endforelse
+    </ul>
 @endsection

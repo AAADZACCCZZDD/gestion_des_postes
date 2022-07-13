@@ -15,12 +15,22 @@
                     </del>
                 @endif
                 <p>Content : {{ $post->content }}</p>
-                <p>created_at : {{ $post->created_at->diffForHumans() }}</p>
+                <p class="text-muted">Created at {{ $post->created_at }} </p>
+                <p class="text-muted">Updated at {{ $post->updated_at }} </p>
                 @if ($post->active)
                     <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
                 @else
                     <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
                 @endif
+
+                @if ($post->comment_count === 0)
+                    <p>no comment exist</p>
+                @elseif($post->comment_count === 1)
+                    <p>{{ $post->comment_count }} comment</p>
+                @elseif($post->comment_count >= 1)
+                    <p>{{ $post->comment_count }} comments</p>
+                @endif
+
                 @if (!$post->deleted_at)
                     @can('update', $post)
                         <button class="btn btn-warning" style="display: inline"><a
@@ -35,7 +45,7 @@
                         </form>
                     @endcan
                     @cannot('update', $post)
-                    <span class="badge badge-info badge-light">You can't update this post</span><br>
+                        <span class="badge badge-info badge-light">You can't update this post</span><br>
                     @endcannot
                     @cannot('delete', $post)
                         <span class="badge badge-info badge-light">You can't delete this post</span>
@@ -55,7 +65,6 @@
                             <button type="submit" class="btn btn-dark mt-2">Outright delete</button>
                         </form>
                     @endcan
-                    
                 @endif
             </li>
         @empty

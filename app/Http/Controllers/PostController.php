@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\PostCreateRequest;
 
 class PostController extends Controller
@@ -19,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts=Post::withTrashed()->orderBy('updated_at','desc')->get();
+        $posts=Post::withTrashed()->withCount('comment')->get();
         return view('posts.index',[
             'posts'=>$posts
         ]);
@@ -64,7 +66,9 @@ class PostController extends Controller
     public function show($id)
     {
         return view('posts.show',[
-            'post'=>Post::findOrFail($id)
+            'post'=>Post::findOrFail($id),
+            // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get(),
+            'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
         ]);
     }
 
