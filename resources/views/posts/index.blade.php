@@ -102,4 +102,20 @@
             </ul>
         </div>
     </div>
+
+    <div class="card mt-5">
+        <div class="card-body">
+            <h4>Users Active Last Month</h4>
+            <ul class="list-group list-group-flush">
+                @foreach ($UsersActiveLastMonth as $UALM)
+                    <li class="list-group-item">
+                        * {{ $UALM->name }}
+                        <span class="badge bg-secondary">{{ $UALM->post_count }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    
 @endsection

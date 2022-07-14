@@ -25,10 +25,12 @@ class PostController extends Controller
         $posts=Post::withTrashed()->withCount('comment')->get();
         $MostPostCommented=Post::MostPostCommented()->take(5)->get();
         $MostUserPosted=User::MostUserPosted()->take(5)->get();
+        $UsersActiveLastMonth=User::UsersActiveLastMonth()->take(5)->get();
         return view('posts.index',[
             'posts'=>$posts,
             'MostPostCommented'=>$MostPostCommented,
             'MostUserPosted'=>$MostUserPosted,
+            'UsersActiveLastMonth'=>$UsersActiveLastMonth,
         ]);
     }
 
