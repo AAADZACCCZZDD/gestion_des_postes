@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\PostCreateRequest;
 
 class PostController extends Controller
@@ -20,12 +21,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $posts=Post::withTrashed()->withCount('comment')->get();
-        $MostPostCommented=Post::MostPostCommented()->take(5)->get();
-        $MostUserPosted=User::MostUserPosted()->take(5)->get();
-        $UsersActiveLastMonth=User::UsersActiveLastMonth()->take(5)->get();
+        $posts=Cache::remember('posts', now()->addSeconds(100), function(){
+            return Post::withTrashed()->withCount('comment')->get();
+        });
+        $MostPostCommented=Cache::remember('MostPostCommented', now()->addSeconds(10), function(){
+            return Post::MostPostCommented()->take(5)->get();
+        });
+        $MostUserPosted=Cache::remember('MostUserPosted', now()->addSeconds(10), function(){
+            return User::MostUserPosted()->take(5)->get();
+        });
+        $UsersActiveLastMonth=Cache::remember('UsersActiveLastMonth', now()->addSeconds(10), function(){
+            return User::UsersActiveLastMonth()->take(5)->get();
+        });
+        
         return view('posts.index',[
             'posts'=>$posts,
             'MostPostCommented'=>$MostPostCommented,
@@ -72,9 +83,15 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
+            return Post::findOrFail($id);
+        });
+        $comment=Cache::remember('comment', now()->addSeconds(10), function() use ($id) {
+            return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'asc')->get();
+        });
         return view('posts.show',[
-            'post'=>Post::findOrFail($id),
-            'comments'=>DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'asc')->get(),
+            'post'=>$post,
+            'comments'=>$comment,
             // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
         ]);
     }

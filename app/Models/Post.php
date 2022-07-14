@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Comment;
 use App\Scopes\LatestScope;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,6 +45,16 @@ class Post extends Model
 
         static::restoring(function(Post $post){
             $post->comment()->restore();
+        });
+
+        static::creating(function(Post $post){
+            Cache::forget('posts');
+        });
+        static::updating(function(Post $post){
+            Cache::forget('posts');
+        });
+        static::deleting(function(Post $post){
+            Cache::forget('posts');
         });
     }
 }
