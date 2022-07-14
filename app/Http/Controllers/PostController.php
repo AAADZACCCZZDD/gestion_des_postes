@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,12 @@ class PostController extends Controller
     public function index()
     {
         $posts=Post::withTrashed()->withCount('comment')->get();
+        $MostPostCommented=Post::MostPostCommented()->take(5)->get();
+        $MostUserPosted=User::MostUserPosted()->take(5)->get();
         return view('posts.index',[
-            'posts'=>$posts
+            'posts'=>$posts,
+            'MostPostCommented'=>$MostPostCommented,
+            'MostUserPosted'=>$MostUserPosted,
         ]);
     }
 
