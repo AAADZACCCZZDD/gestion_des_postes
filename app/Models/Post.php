@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Comment;
 use App\Scopes\LatestScope;
@@ -31,6 +32,11 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function tag()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
     public static function boot()
