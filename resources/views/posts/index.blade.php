@@ -15,6 +15,9 @@
                     </del>
                 @endif
                 <p>Content : {{ $post->content }}</p>
+
+                <x-tags :tags="$post->tag"></x-tags>
+
                 <p class="text-muted">Created at {{ $post->created_at }} </p>
                 <p class="text-muted">Updated at {{ $post->updated_at }} </p>
                 @if ($post->active)
