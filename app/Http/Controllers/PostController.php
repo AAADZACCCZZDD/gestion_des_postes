@@ -24,25 +24,27 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts=Cache::remember('posts', now()->addSeconds(100), function(){
-            return Post::withTrashed()->withCount('comment')->get();
-        });
-        $MostPostCommented=Cache::remember('MostPostCommented', now()->addSeconds(10), function(){
-            return Post::MostPostCommented()->take(5)->get();
-        });
-        $MostUserPosted=Cache::remember('MostUserPosted', now()->addSeconds(10), function(){
-            return User::MostUserPosted()->take(5)->get();
-        });
-        $UsersActiveLastMonth=Cache::remember('UsersActiveLastMonth', now()->addSeconds(10), function(){
-            return User::UsersActiveLastMonth()->take(5)->get();
-        });
+        // $posts=Cache::remember('posts', now()->addSeconds(10), function(){
+        //     return Post::withTrashed()->withCount('comment')->with(['user','tag','comment'])->get();
+        // });
+        // $MostPostCommented=Cache::remember('MostPostCommented', now()->addSeconds(10), function(){
+        //     return Post::MostPostCommented()->take(5)->get();
+        // });
+        // $MostUserPosted=Cache::remember('MostUserPosted', now()->addSeconds(10), function(){
+        //     return User::MostUserPosted()->take(5)->get();
+        // });
+        // $UsersActiveLastMonth=Cache::remember('UsersActiveLastMonth', now()->addSeconds(10), function(){
+        //     return User::UsersActiveLastMonth()->take(5)->get();
+        // });
         
-        return view('posts.index',[
-            'posts'=>$posts,
-            'MostPostCommented'=>$MostPostCommented,
-            'MostUserPosted'=>$MostUserPosted,
-            'UsersActiveLastMonth'=>$UsersActiveLastMonth,
-        ]);
+        return view('posts.index'
+        // ,[
+        //     'posts'=>$posts,
+        //     'MostPostCommented'=>$MostPostCommented,
+        //     'MostUserPosted'=>$MostUserPosted,
+        //     'UsersActiveLastMonth'=>$UsersActiveLastMonth,
+        // ]
+    );
     }
 
     /**

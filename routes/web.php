@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostTagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::get('/', function () {
 Route::patch('/posts/{id}/restore', [PostController::class, 'restore']);
 Route::delete('/posts/{id}/forcedelete', [PostController::class, 'forcedelete']);
 Route::resource('/posts', PostController::class);
+Route::get('/posts/tag/{id}', [PostTagController::class, 'index'])->name('posts.tag.index');
 Auth::routes();
 Route::get('/secret', [App\Http\Controllers\HomeController::class, 'secret'])->name('secret')->middleware('can:secret');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
