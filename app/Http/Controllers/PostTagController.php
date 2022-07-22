@@ -17,12 +17,12 @@ class PostTagController extends Controller
         $tag = Tag::find($id);
         
         return view('posts.index'
-        // , [
-        //     'posts'=>$tag->post,
+        , [
+            'posts'=>$tag->post,
         //     'MostPostCommented'=>[],
         //     'MostUserPosted'=>[],
         //     'UsersActiveLastMonth'=>[],
-        // ]
+        ]
     );
     }
 

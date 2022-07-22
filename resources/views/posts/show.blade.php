@@ -23,3 +23,8 @@
         @endforelse
     </ul>
 @endsection
+
+@section('right')
+    @include('posts.sidebare')
+@endsection
+

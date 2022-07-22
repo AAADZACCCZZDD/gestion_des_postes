@@ -12,9 +12,9 @@ class ActivityComposer
 {
     public function compose(View $view)
     {
-        $posts = Cache::remember('posts', now()->addSeconds(10), function () {
-            return Post::withTrashed()->withCount('comment')->with(['user', 'tag', 'comment'])->get();
-        });
+        // $posts = Cache::remember('posts', now()->addSeconds(10), function () {
+        //     return Post::withTrashed()->withCount('comment')->with(['user', 'tag', 'comment'])->get();
+        // });
         $MostPostCommented = Cache::remember('MostPostCommented', now()->addSeconds(10), function () {
             return Post::MostPostCommented()->take(5)->get();
         });
@@ -24,9 +24,10 @@ class ActivityComposer
         $UsersActiveLastMonth = Cache::remember('UsersActiveLastMonth', now()->addSeconds(10), function () {
             return User::UsersActiveLastMonth()->take(5)->get();
         });
+        
 
         $view->with([
-            'posts' => $posts,
+            // 'posts' => $posts,
             'MostPostCommented' => $MostPostCommented,
             'MostUserPosted' => $MostUserPosted,
             'UsersActiveLastMonth' => $UsersActiveLastMonth
