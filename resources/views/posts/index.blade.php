@@ -18,7 +18,7 @@
 
                 <x-tags :tags="$post->tag"></x-tags>
 
-                <p class="text-muted">Created at {{ $post->created_at }} </p>
+                <p class="text-muted">Created at {{ $post->created_at }}, By {{$post->user->name}} </p>
                 <p class="text-muted">Updated at {{ $post->updated_at }} </p>
                 @if ($post->active)
                     <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
