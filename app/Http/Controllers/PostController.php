@@ -86,7 +86,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
-            return Post::with(['user','tag'])->findOrFail($id);
+            return Post::with(['user','tag','comment'])->withCount('comment')->findOrFail($id);
         });
         $comment=Cache::remember("comment-{id}", now()->addSeconds(1000), function() use ($id) {
             return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get();

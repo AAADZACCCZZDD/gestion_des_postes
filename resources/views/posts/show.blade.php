@@ -10,9 +10,17 @@
         <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
     @endif
 
+    @if ($post->comment_count === 0)
+        <p>no comment exist</p>
+    @elseif($post->comment_count === 1)
+        <p>{{ $post->comment_count }} comment</p>
+    @elseif($post->comment_count >= 1)
+        <p>{{ $post->comment_count }} comments</p>
+    @endif
+
     @auth
         <h1>Add Comment</h1>
-        @include('posts.comment', ['id'=>$post->id])
+        @include('posts.comment', ['id' => $post->id])
         {{-- @include('posts.comment') --}}
         {{-- @include('posts.comment', ['id' => $post->id]) --}}
     @endauth
