@@ -45,11 +45,6 @@ class Comment extends Model
         return $builder->orderBy(static::UPDATED_AT, 'desc');
     }
 
-    // public static function boot()
-    // {
-    //     parent::boot();
-    //     static::addGlobalScope(new LatestScope);        
-    // }
 }
 
 

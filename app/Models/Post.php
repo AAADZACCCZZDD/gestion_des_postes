@@ -21,7 +21,6 @@ class Post extends Model
     public function comment()
     {
         return $this->hasMany(Comment::class)->dernier();
-        // return $this->hasMany(Comment::class);
     } 
 
     public function scopeMostPostCommented(Builder $builder)

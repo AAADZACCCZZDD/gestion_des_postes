@@ -25,25 +25,12 @@ class PostController extends Controller
     public function index()
     {
         $posts=Cache::remember('posts', now()->addSeconds(10), function(){
-            // return Post::withTrashed()->withCount('comment')->with(['user','tag','comment'])->get();
             return Post::withTrashed()->postWithUserCommentTag()->get();
         });
-        // $MostPostCommented=Cache::remember('MostPostCommented', now()->addSeconds(10), function(){
-        //     return Post::MostPostCommented()->take(5)->get();
-        // });
-        // $MostUserPosted=Cache::remember('MostUserPosted', now()->addSeconds(10), function(){
-        //     return User::MostUserPosted()->take(5)->get();
-        // });
-        // $UsersActiveLastMonth=Cache::remember('UsersActiveLastMonth', now()->addSeconds(10), function(){
-        //     return User::UsersActiveLastMonth()->take(5)->get();
-        // });
-        
+                
         return view('posts.index'
         ,[
             'posts'=>$posts,
-        //     'MostPostCommented'=>$MostPostCommented,
-        //     'MostUserPosted'=>$MostUserPosted,
-        //     'UsersActiveLastMonth'=>$UsersActiveLastMonth,
         ]
     );
     }
@@ -86,20 +73,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        // $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
-        //     return Post::with(['user','tag','comment'])->withCount('comment')->findOrFail($id);
-        // });
         $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
-            // return Post::with(['comment','comment.user','tag'])->withCount('comment')->findOrFail($id); // method iger
             return Post::postWithUserCommentTag()->findOrFail($id); // method iger
         });
-        // $comment=Cache::remember("comment-{id}", now()->addSeconds(1000), function() use ($id) {
-        //     return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get();
-        // });
         return view('posts.show',[
             'post'=>$post,
-            // 'comments'=>$comment,
-            // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
         ]);
     }
 
