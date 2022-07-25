@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\PostCreateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -60,6 +61,30 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->slug = "-";
         $post->active = true;
+        
+        $has_picture = $request->hasFile('picture');
+        if($has_picture){
+            $file = $request->file('picture');
+            // dump($file->getClientOriginalExtension());
+            // dump($file->getClientMimeType());
+            // dump($file->getClientOriginalName());
+
+            // $file->store('my_files');
+            // dump(Storage::putFile('my_files', $file));
+            // dump(Storage::disk('local')->putFile('my_files_local', $file));
+            // dump($file->storeAs('my_files', random_int(1, 100). '.' .  $file->getClientOriginalName()));
+            // dump($file->storeAs('my_files', random_int(1, 100). '.' .  $file->guessExtension()));
+            // dump(Storage::putFileAs('my_files',$file, random_int(1, 100). '.' .  $file->getClientOriginalName()));
+            // dump(Storage::disk('local')->putFileAs('my_files',$file, random_int(1, 100). '.' .  $file->guessExtension()));
+
+            // $name1 = dump(Storage::putFileAs('my_files',$file, random_int(1, 100). '.' .  $file->getClientOriginalName()));
+            $name3 = dump($file->storeAs('my_files', random_int(1, 100). '.' .  $file->getClientOriginalName()));
+            // $name2 = dump(Storage::disk('local')->putFileAs('my_files',$file, random_int(1, 100). '.' .  $file->guessExtension()));
+            dump(Storage::url($name3));
+            // dump(Storage::disk('local')->url($name2));
+        }
+        dd('ok');
+        
         $post->save();
         $request->session()->flash('create','The post was created successfully');
         return redirect()->route('posts.show', ['post'=> $post->id]);
