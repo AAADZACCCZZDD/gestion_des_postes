@@ -39,6 +39,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function scopePostWithUserCommentTag(Builder $builder)
+    {
+        return $builder->with(['comment','user','comment.user','tag'])->withCount('comment');
+    }
+
     public static function boot()
     {
         parent::boot();

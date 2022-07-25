@@ -25,7 +25,8 @@ class PostController extends Controller
     public function index()
     {
         $posts=Cache::remember('posts', now()->addSeconds(10), function(){
-            return Post::withTrashed()->withCount('comment')->with(['user','tag','comment'])->get();
+            // return Post::withTrashed()->withCount('comment')->with(['user','tag','comment'])->get();
+            return Post::withTrashed()->postWithUserCommentTag()->get();
         });
         // $MostPostCommented=Cache::remember('MostPostCommented', now()->addSeconds(10), function(){
         //     return Post::MostPostCommented()->take(5)->get();
@@ -89,7 +90,8 @@ class PostController extends Controller
         //     return Post::with(['user','tag','comment'])->withCount('comment')->findOrFail($id);
         // });
         $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
-            return Post::with(['comment','comment.user','tag'])->withCount('comment')->findOrFail($id); // method iger
+            // return Post::with(['comment','comment.user','tag'])->withCount('comment')->findOrFail($id); // method iger
+            return Post::postWithUserCommentTag()->findOrFail($id); // method iger
         });
         // $comment=Cache::remember("comment-{id}", now()->addSeconds(1000), function() use ($id) {
         //     return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get();
