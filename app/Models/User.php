@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Comment;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,6 +53,10 @@ class User extends Authenticatable
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function tag()
+    {
+        return $this->hasMany(Tag::class);
     }
 
     public function scopeMostUserPosted(Builder $builder)

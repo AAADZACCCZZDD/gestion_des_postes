@@ -30,7 +30,8 @@ class ActivityComposer
             // 'posts' => $posts,
             'MostPostCommented' => $MostPostCommented,
             'MostUserPosted' => $MostUserPosted,
-            'UsersActiveLastMonth' => $UsersActiveLastMonth
+            'UsersActiveLastMonth' => $UsersActiveLastMonth,
+            // 'post' => $post,
         ]);
     }
 }

@@ -25,11 +25,11 @@
         {{-- @include('posts.comment', ['id' => $post->id]) --}}
     @endauth
     <ul>
-        @forelse($comments as $comment)
+        @forelse($post->comment as $com)
             <li>
-                <p>{{ $comment->content }}</p>
+                <p>{{ $com->content }}</p>
                 {{-- <p class="text-muted">Created at {{ $comment->created_at }} </p> --}}
-                <p class="text-muted">created at {{ $comment->created_at }} </p>
+                <p class="text-muted">created at {{ $com->created_at }} By {{$com->user->name}}  </p>
             </li>
         @empty
             <p>no comment exist</p>

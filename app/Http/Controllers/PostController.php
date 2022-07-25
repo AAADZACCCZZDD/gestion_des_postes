@@ -85,15 +85,18 @@ class PostController extends Controller
      */
     public function show($id)
     {
+        // $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
+        //     return Post::with(['user','tag','comment'])->withCount('comment')->findOrFail($id);
+        // });
         $post=Cache::remember('post', now()->addSeconds(10), function() use ($id) {
-            return Post::with(['user','tag','comment'])->withCount('comment')->findOrFail($id);
+            return Post::with(['comment','comment.user','tag'])->withCount('comment')->findOrFail($id); // method iger
         });
-        $comment=Cache::remember("comment-{id}", now()->addSeconds(1000), function() use ($id) {
-            return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get();
-        });
+        // $comment=Cache::remember("comment-{id}", now()->addSeconds(1000), function() use ($id) {
+        //     return DB::table('comments')->where('post_id', '=', $id)->orderBy('updated_at', 'desc')->get();
+        // });
         return view('posts.show',[
             'post'=>$post,
-            'comments'=>$comment,
+            // 'comments'=>$comment,
             // 'comments'=>DB::table('comments')->where('post_id', '=', $id)->get(),
         ]);
     }

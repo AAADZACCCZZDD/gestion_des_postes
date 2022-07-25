@@ -40,10 +40,10 @@ class Comment extends Model
         // });
     } 
 
-    // public function scopeDernier(Builder $builder)
-    // {
-    //     return $builder->orderBy(static::UPDATED_AT, 'asc');
-    // }
+    public function scopeDernier(Builder $builder)
+    {
+        return $builder->orderBy(static::UPDATED_AT, 'desc');
+    }
 
     // public static function boot()
     // {
