@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPictureToPostsTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddPictureToPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('post_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('picture');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddPictureToPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('picture');
-        });
+        Schema::dropIfExists('images');
     }
 }

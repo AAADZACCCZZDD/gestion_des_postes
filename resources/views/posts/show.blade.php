@@ -4,6 +4,9 @@
     <span class="badge bg-secondary">Id: {{ $post->id }}</span><br>
     <a>Title : {{ $post->title }}</a> <br>
     <p>Content : {{ $post->content }}</p>
+    @if ($post->image)
+        <img src=" {{ $post->image->url() }} " alt="">
+    @endif
     @if ($post->active)
         <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
     @else
@@ -29,7 +32,7 @@
             <li>
                 <p>{{ $com->content }}</p>
                 {{-- <p class="text-muted">Created at {{ $comment->created_at }} </p> --}}
-                <p class="text-muted">created at {{ $com->created_at }} By {{$com->user->name}}  </p>
+                <p class="text-muted">created at {{ $com->created_at }} By {{ $com->user->name }} </p>
             </li>
         @empty
             <p>no comment exist</p>

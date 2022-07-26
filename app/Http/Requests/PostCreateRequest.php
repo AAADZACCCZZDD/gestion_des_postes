@@ -26,7 +26,7 @@ class PostCreateRequest extends FormRequest
         return [
             'title'=>'required|min:4',
             'content'=>'required|min:4',
-            // 'picture'=>'required'
+            'picture'=>'required'
         ];
     }
 }

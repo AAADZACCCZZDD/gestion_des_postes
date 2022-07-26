@@ -5,6 +5,7 @@ namespace App\Models;
 
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Comment;
 use App\Scopes\LatestScope;
 use Illuminate\Support\Facades\Cache;
@@ -41,6 +42,11 @@ class Post extends Model
     public function scopePostWithUserCommentTag(Builder $builder)
     {
         return $builder->with(['comment','user','comment.user','tag'])->withCount('comment');
+    }
+
+    public function image()
+    {
+        return $this->hasOne(Image::class);
     }
 
     public static function boot()
