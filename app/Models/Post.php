@@ -57,10 +57,14 @@ class Post extends Model
 
         static::deleting(function(Post $post){
             $post->comment()->delete();
+            $post->image()->delete();
         });
+
+
 
         static::restoring(function(Post $post){
             $post->comment()->restore();
+            $post->image()->restore();
         });
 
         static::creating(function(Post $post){
