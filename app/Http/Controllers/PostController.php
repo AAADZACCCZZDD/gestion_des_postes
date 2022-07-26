@@ -64,13 +64,13 @@ class PostController extends Controller
         $post->slug = "-";
         $post->active = true;
         $post->save();
-        
+
         //upload picture for current posts
         $has_picture = $request->hasFile('picture');
-        if ($has_picture) 
-        {
+        if ($has_picture) {
             $file = $request->file('picture');
-            $store_img = Storage::putFileAs('posts', $file, $file->getClientOriginalName());
+            // $store_img = Storage::putFileAs('posts', $file, $file->getClientOriginalName()); 
+            $store_img = $file->storeAs('posts',  $file->getClientOriginalName()) ; // another method 
             $post->image()->save(Image::make(['picture' => $store_img]));
         }
 
@@ -122,6 +122,22 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->slug = "-";
         $post->active = true;
+
+        $picture_having = $request->hasFile('picture');
+        if ($picture_having) {
+            $file = $request->file('picture');
+            $new_image = $file->storeAs('posts',  $file->getClientOriginalName());
+            if ($post->image) {
+                Storage::delete($post->image->picture);
+                $post->image->picture = $new_image;
+                $post->image->save();
+            } else {
+                $file = $request->file('picture');
+                $store_img = $file->storeAs('posts',  $file->getClientOriginalName());
+                $post->image()->save(Image::make(['picture' => $store_img]));
+            }
+        }
+        
         $post->save();
         $request->session()->flash('update', 'The post was updated successfully');
         return redirect()->route('posts.show', ['post' => $post->id]);

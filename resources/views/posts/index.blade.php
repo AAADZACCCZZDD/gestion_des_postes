@@ -20,6 +20,11 @@
 
                 <p class="text-muted">Created at {{ $post->created_at }}, By {{$post->user->name}} </p>
                 <p class="text-muted">Updated at {{ $post->updated_at }} </p>
+                <div>
+                    @if ($post->image)
+                        <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt=""  width="100%"> <br>
+                    @endif
+                </div>
                 @if ($post->active)
                     <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
                 @else

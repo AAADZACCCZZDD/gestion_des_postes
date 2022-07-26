@@ -4,9 +4,23 @@
     <span class="badge bg-secondary">Id: {{ $post->id }}</span><br>
     <a>Title : {{ $post->title }}</a> <br>
     <p>Content : {{ $post->content }}</p>
-    @if ($post->image)
-        <img src=" {{ $post->image->url() }} " alt="">
-    @endif
+    <div>
+        @if ($post->image)
+            <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt="" width="70%"> <br>
+        @endif
+    </div>
+    <br>
+    @can('update', $post)
+        <button class="btn btn-warning" style="display: inline"><a
+                href=" {{ route('posts.edit', ['post' => $post->id]) }} ">Edit</a> </button>
+    @endcan
+    @can('delete', $post)
+        <form style="display: inline" action=" {{ route('posts.destroy', ['post' => $post->id]) }} " method="post">
+            @csrf
+            @method('delete')
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    @endcan
     @if ($post->active)
         <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
     @else
