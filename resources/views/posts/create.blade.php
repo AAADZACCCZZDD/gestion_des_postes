@@ -7,11 +7,11 @@
         @csrf
         <div class="mb-3 mt-3">
             <label for="email" class="form-label">title:</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+            <input type="text" class="form-control" id="title" placeholder="Enter title" name="title"  value="{{old('title')}}">
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">content:</label>
-            <input type="text" class="form-control" id="pwd" placeholder="Enter content" name="content">
+            <input type="text" class="form-control" id="pwd" placeholder="Enter content" name="content"  value="{{old('content')}}">
         </div>
         <div class="mb-3">
             <label for="picture" class="form-label">picture:</label><br>

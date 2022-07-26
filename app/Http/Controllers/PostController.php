@@ -114,7 +114,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostCreateRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
@@ -137,7 +137,7 @@ class PostController extends Controller
                 $post->image()->save(Image::make(['picture' => $store_img]));
             }
         }
-        
+
         $post->save();
         $request->session()->flash('update', 'The post was updated successfully');
         return redirect()->route('posts.show', ['post' => $post->id]);

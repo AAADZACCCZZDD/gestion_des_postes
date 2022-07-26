@@ -9,34 +9,35 @@
                 <span class="badge bg-secondary">Id: {{ $post->id }}</span><br>
                 @if (!$post->deleted_at)
                     <a href="{{ route('posts.show', $post->id) }}">Title : {{ $post->title }}</a> <br>
+                    <p>Content : {{ $post->content }}</p>
+
+                    <x-tags :tags="$post->tag"></x-tags>
+
+                    <p class="text-muted">Created at {{ $post->created_at }}, By {{ $post->user->name }} </p>
+                    <p class="text-muted">Updated at {{ $post->updated_at }} </p>
+                    <div>
+                        @if ($post->image)
+                            <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt="" width="100%"> <br>
+                        @endif
+                    </div>
+                    @if ($post->active)
+                        <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
+                    @else
+                        <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
+                    @endif
+
+                    @if ($post->comment_count === 0)
+                        <p>no comment exist</p>
+                    @elseif($post->comment_count === 1)
+                        <p>{{ $post->comment_count }} comment</p>
+                    @elseif($post->comment_count >= 1)
+                        <p>{{ $post->comment_count }} comments</p>
+                    @endif
                 @else
                     <del>
                         Title : {{ $post->title }} <br>
                     </del>
-                @endif
-                <p>Content : {{ $post->content }}</p>
-
-                <x-tags :tags="$post->tag"></x-tags>
-
-                <p class="text-muted">Created at {{ $post->created_at }}, By {{$post->user->name}} </p>
-                <p class="text-muted">Updated at {{ $post->updated_at }} </p>
-                <div>
-                    @if ($post->image)
-                        <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt=""  width="100%"> <br>
-                    @endif
-                </div>
-                @if ($post->active)
-                    <p>Post is <a style="color: #2eba58" href="">activated</a> </p>
-                @else
-                    <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
-                @endif
-
-                @if ($post->comment_count === 0)
-                    <p>no comment exist</p>
-                @elseif($post->comment_count === 1)
-                    <p>{{ $post->comment_count }} comment</p>
-                @elseif($post->comment_count >= 1)
-                    <p>{{ $post->comment_count }} comments</p>
+                    <p class="text-muted">Deleted at {{ $post->deleted_at }} </p>
                 @endif
 
                 @if (!$post->deleted_at)
