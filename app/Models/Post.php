@@ -44,9 +44,13 @@ class Post extends Model
         return $builder->with(['comment','user','comment.user','tag'])->withCount('comment');
     }
 
+    // public function image()
+    // {
+    //     return $this->hasOne(Image::class);
+    // }
     public function image()
     {
-        return $this->hasOne(Image::class);
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     public static function boot()
