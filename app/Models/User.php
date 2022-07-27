@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(Tag::class);
     }
 
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
     public function scopeMostUserPosted(Builder $builder)
     {
         return $builder->withCount('post')->orderBy('post_count','desc');

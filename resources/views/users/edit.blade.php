@@ -6,9 +6,9 @@
         @method('put')
         <div class="row">
             <div >
-                <h5>select a defference avatar</h5><br>
-                <img src="" alt="" class="img-thumbnail">
-                <input type="file" name="avatar" id="avatar" class="form-control-file">
+                <h5>select a defference picture</h5><br>
+                <img src=" {{$user->image ? $user->image->url() : ''}} " alt="" class="img-thumbnail" width="100px" >
+                <input type="file" name="picture" id="picture" class="form-control-file">
             </div>
             <div class="my-3">
                 <div class="form-group">
@@ -20,5 +20,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
+        @include('posts.errors')
     </form>
+
 @endsection
