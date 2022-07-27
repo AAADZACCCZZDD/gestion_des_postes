@@ -13,7 +13,7 @@
 
                     <x-tags :tags="$post->tag"></x-tags>
 
-                    <p class="text-muted">Created at {{ $post->created_at }}, By {{ $post->user->name }} </p>
+                    <p class="text-muted">Created at {{ $post->created_at }}, By <a href=" {{route('users.show', [$post->user->id])}} ">{{ $post->user->name }} </a> </p>
                     <p class="text-muted">Updated at {{ $post->updated_at }} </p>
                     <div>
                         @if ($post->image)

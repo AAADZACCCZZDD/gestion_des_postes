@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -51,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        dd($user);
+        return view('users.show', ['user'=>$user]);
     }
 
     /**
@@ -62,7 +64,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        dd(true);
+        return view('users.edit', ['user'=>$user]);
     }
 
     /**
@@ -74,6 +76,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // if ($request->hasFile('avatar')) {
+            
+        // }if ($request->hasFile('avatar')) {
+            
+        // }
+
+        // $user->save();
+        dd('ok');
+        // $request->session()->flash('update', 'Post updated');
+        // return redirect()->back();
     }
 
     /**
