@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\User' => 'App\Policies\UserPolicy',
     ];
 
     /**
@@ -26,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user, $ability){
-            if($user->is_admin && in_array($ability, ['delete','restore','forcedelete','update','create'])){
+            if($user->is_admin && in_array($ability, ['delete','restore','forcedelete','update','show','create'])){
                 return true;
             }
         });
