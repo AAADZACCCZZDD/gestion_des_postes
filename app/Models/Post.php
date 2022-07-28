@@ -22,7 +22,7 @@ class Post extends Model
     public function comment()
     {
         // return $this->hasMany(Comment::class)->dernier();
-        return $this->manyTo(Comment::class, 'commentable')->dernier();
+        return $this->morphMany(Comment::class, 'commentable')->dernier();
     } 
 
     public function scopeMostPostCommented(Builder $builder)

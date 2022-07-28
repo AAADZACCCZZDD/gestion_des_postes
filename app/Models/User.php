@@ -54,7 +54,7 @@ class User extends Authenticatable
     public function comment()
     {
         // return $this->hasMany(Comment::class);
-        return $this->manyTo(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
     public function tag()
     {
