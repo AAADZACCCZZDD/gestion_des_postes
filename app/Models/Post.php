@@ -72,8 +72,10 @@ class Post extends Model
             $post->image()->restore();
         });
 
+
         static::creating(function(Post $post){
             Cache::forget('posts');
+            Cache::forget("post-{id}");
         });
         static::updating(function(Post $post){
             Cache::forget('posts');
@@ -81,5 +83,6 @@ class Post extends Model
         static::deleting(function(Post $post){
             Cache::forget('posts');
         });
+       
     }
 }

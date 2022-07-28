@@ -14,6 +14,7 @@ class UserCommentController extends Controller
     }
     public function store(CommentRequest $request, User $user)
     {
+        // dd('ok');
         $user->comment()->create([
             'content' => $request->content,
             'user_id' => $request->user()->id

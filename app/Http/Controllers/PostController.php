@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Cache::remember('post', now()->addSeconds(10), function () use ($id) {
+        $post = Cache::remember('post-{id}', now()->addSeconds(10), function () use ($id) {
             return Post::postWithUserCommentTag()->findOrFail($id); // method iger
         });
         return view('posts.show', [

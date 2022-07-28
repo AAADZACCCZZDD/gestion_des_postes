@@ -37,7 +37,8 @@
 
     @auth
         <h1>Add Comment</h1>
-        @include('posts.comment', ['id' => $post->id])
+        {{-- @include('posts.comment', ['id' => $post->id]) --}}
+        <x-CommentForm :action="route('post.comment.store', ['post' => $post->id])"></x-CommentForm>
         {{-- @include('posts.comment') --}}
         {{-- @include('posts.comment', ['id' => $post->id]) --}}
     @endauth
@@ -45,7 +46,7 @@
         @forelse($post->comment as $com)
             <li>
                 <p>{{ $com->content }}</p>
-                {{-- <p class="text-muted">Created at {{ $comment->created_at }} </p> --}}
+                <p class="text-muted">Created at {{ $com->created_at }} </p>
                 <p class="text-muted">created at {{ $com->created_at }} By {{ $com->user->name }} </p>
             </li>
         @empty
