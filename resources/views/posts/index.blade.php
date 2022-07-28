@@ -11,13 +11,37 @@
                     <a href="{{ route('posts.show', $post->id) }}">Title : {{ $post->title }}</a> <br>
                     <p>Content : {{ $post->content }}</p>
 
-                    <x-tags :tags="$post->tag"></x-tags>
+                    {{-- <x-tags :tags="$post->tag"></x-tags> --}}
+                    {{-- <x-tags :tags="$post->tags"></x-tags> --}}
+                    @foreach ($posts as $tag)
+                        <span class="badge badge-success"><a
+                                href=" {{ route('posts.tag.index', ['id' => $tag->id]) }} ">{{ $tag->name }}</a>
+                        </span>
+                    @endforeach
 
-                    <p class="text-muted">Created at {{ $post->created_at }}, By <a href=" {{route('users.show', [$post->user->id])}} ">{{ $post->user->name }} </a> </p>
-                    <p class="text-muted">Updated at {{ $post->updated_at }} </p>
+
+
+
+                    <p class="text-muted">Created at {{ $post->created_at }}
+                        @can('update', $post)
+                            , By <a href=" {{ route('users.show', [$post->user->id]) }} ">{{ $post->user->name }} </a>
+                        @endcan
+                        @cannot('update', $post)
+                            , By <a>{{ $post->user->name }} </a>
+                        @endcannot
+                    </p>
+                    <p class="text-muted">Updated at {{ $post->updated_at }}
+                        @can('update', $post)
+                            , By <a href=" {{ route('users.show', [$post->user->id]) }} ">{{ $post->user->name }} </a>
+                        @endcan
+                        @cannot('update', $post)
+                            , By <a>{{ $post->user->name }} </a>
+                        @endcannot
+                    </p>
                     <div>
                         @if ($post->image)
-                            <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt="" width="100%"> <br>
+                            <img src="{{ $post->image->url() }}" class="img-fluid rounded" alt="" width="100%">
+                            <br>
                         @endif
                     </div>
                     @if ($post->active)

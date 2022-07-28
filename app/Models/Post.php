@@ -37,12 +37,13 @@ class Post extends Model
 
     public function tag()
     {
-        return $this->belongsToMany(Tag::class)->withTimestamps();
+        // return $this->belongsToMany(Tag::class)->withTimestamps();
+        return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
     }
 
     public function scopePostWithUserCommentTag(Builder $builder)
     {
-        return $builder->with(['comment','user','comment.user','tag'])->withCount('comment');
+        return $builder->with(['comment', 'user', 'comment.user', 'tag'])->withCount('comment');
     }
 
     // public function image()
@@ -65,8 +66,6 @@ class Post extends Model
             $post->image()->delete();
         });
 
-
-
         static::restoring(function(Post $post){
             $post->comment()->restore();
             $post->image()->restore();
@@ -75,7 +74,7 @@ class Post extends Model
 
         static::creating(function(Post $post){
             Cache::forget('posts');
-            Cache::forget("post-{id}");
+            // Cache::forget("post-{id}");
         });
         static::updating(function(Post $post){
             Cache::forget('posts');
@@ -83,6 +82,8 @@ class Post extends Model
         static::deleting(function(Post $post){
             Cache::forget('posts');
         });
-       
+        static::creating(function(Post $post){
+            Cache::forget("post-{$post->id}");
+        });
     }
 }

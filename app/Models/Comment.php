@@ -31,6 +31,11 @@ class Comment extends Model
         return $this->morphTo();
     } 
 
+    public function tag()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')->withTimestamps();
+    }
+
     protected $fillable = [
         'content',
         'user_id'

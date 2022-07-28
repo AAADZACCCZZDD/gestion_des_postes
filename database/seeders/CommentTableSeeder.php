@@ -23,10 +23,23 @@ class CommentTableSeeder extends Seeder
             $this->command->info('u cant generate any Comment');
             return;
         }
-        $nb_comments = (int)$this->command->ask('how many comments u want to generate');
-        Comment::Factory($nb_comments)->make()->each(function($comment) use ($posts, $users){
-            $comment->post_id= $posts->random()->id;
+        $nb_comments = (int)$this->command->ask('how many comments u want to generate', 20);
+        // Comment::Factory($nb_comments)->make()->each(function($comment) use ($posts, $users){
+        //     $comment->post_id= $posts->random()->id;
+        //     $comment->user_id= $users->random()->id;
+        //     $comment->save();
+        // });
+        Comment::Factory($nb_comments)->make()->each(function($comment) use ($posts , $users){
             $comment->user_id= $users->random()->id;
+            $comment->commentable_id= $posts->random()->id ;
+            $comment->commentable_type= Post::class ;
+            $comment->save();
+        });
+
+        Comment::Factory($nb_comments)->make()->each(function($comment) use ($posts , $users){
+            $comment->user_id= $users->random()->id;
+            $comment->commentable_id= $users->random()->id ;
+            $comment->commentable_type= User::class ;
             $comment->save();
         });
     }

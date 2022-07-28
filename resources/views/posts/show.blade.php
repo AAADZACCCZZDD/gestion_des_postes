@@ -26,6 +26,15 @@
     @else
         <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
     @endif
+    <p class="text-muted">Created at {{ $post->created_at }}
+        @can('update', $post)
+            , By <a href=" {{ route('users.show', [$post->user->id]) }} ">{{ $post->user->name }} </a>
+        @endcan
+        @cannot('update', $post)
+            , By <a>{{ $post->user->name }} </a>
+        @endcannot
+    </p>
+    <p class="text-muted">Updated at {{ $post->updated_at }}    </p>
 
     @if ($post->comment_count === 0)
         <p>no comment exist</p>
@@ -46,8 +55,8 @@
         @forelse($post->comment as $com)
             <li>
                 <p>{{ $com->content }}</p>
-                <p class="text-muted">Created at {{ $com->created_at }} </p>
                 <p class="text-muted">created at {{ $com->created_at }} By {{ $com->user->name }} </p>
+                <p class="text-muted">updated at {{ $com->updated_at }} </p>
             </li>
         @empty
             <p>no comment exist</p>
