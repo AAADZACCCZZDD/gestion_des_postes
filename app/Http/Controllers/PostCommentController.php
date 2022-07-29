@@ -49,7 +49,8 @@ class PostCommentController extends Controller
             'user_id' => $request->user()->id
         ]);
         // Mail::to($post->user->email)->send(new CommentPostedMarkdown($comment));
-        Mail::to($post->user->email)->send(new CommentPosted($comment));
+        // Mail::to($post->user->email)->send(new CommentPosted($comment));
+        Mail::to($post->user->email)->queue(new CommentPosted($comment));
         return redirect()->back();
     }
 
