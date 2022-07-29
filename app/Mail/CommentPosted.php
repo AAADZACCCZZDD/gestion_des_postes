@@ -31,6 +31,7 @@ class CommentPosted extends Mailable
     public function build()
     {
         // $objet = "Comment post for { $this->comment->commentable->title }";
+        $objet = "Comment post for ". $this->comment->commentable->title ;
         $objet = "Comment post for test";
         return $this
         ->subject($objet)
