@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Comment;
+use App\Mail\CommentPosted;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -34,4 +36,10 @@ Route::resource('users', UserController::class)->only(['show','edit','update']);
 
 Route::get('/secret', [App\Http\Controllers\HomeController::class, 'secret'])->name('secret')->middleware('can:secret');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/mail', function(){
+    $comment = Comment::find(1);
+    // return new App\Mail\CommentPostedMarkdown($comment);
+    return new CommentPosted($comment);
+});
 

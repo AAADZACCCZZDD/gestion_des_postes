@@ -8,11 +8,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CommentPosted extends Mailable
+class CommentPostedMarkdown extends Mailable
 {
+    public $comment;
     use Queueable, SerializesModels;
 
-    public $comment;
     /**
      * Create a new message instance.
      *
@@ -20,7 +20,7 @@ class CommentPosted extends Mailable
      */
     public function __construct(Comment $comment)
     {
-        $this->comment = $comment;
+        $this->comment=$comment;
     }
 
     /**
@@ -34,8 +34,6 @@ class CommentPosted extends Mailable
 
         return $this
         ->subject($objet)
-        // ->attachFromStorageDisk('public', $this->comment->user->image->picture, 'Profile_picture.jpeg')
-        // ->attachFromStorageDisk('public', $this->comment->user->image->picture ?? '')
-        ->view('emails.posts.comment');
+        ->markdown('emails.posts.commented-marckdown');
     }
 }

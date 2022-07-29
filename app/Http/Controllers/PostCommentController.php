@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Mail\CommentPosted;
 use Illuminate\Http\Request;
+use App\Mail\CommentPostedMarkdown;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CommentRequest;
-use App\Mail\CommentPosted;
 
 class PostCommentController extends Controller
 {
@@ -47,6 +48,7 @@ class PostCommentController extends Controller
             'content' => $request->content,
             'user_id' => $request->user()->id
         ]);
+        // Mail::to($post->user->email)->send(new CommentPostedMarkdown($comment));
         Mail::to($post->user->email)->send(new CommentPosted($comment));
         return redirect()->back();
     }
