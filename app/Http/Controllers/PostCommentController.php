@@ -50,7 +50,12 @@ class PostCommentController extends Controller
         ]);
         // Mail::to($post->user->email)->send(new CommentPostedMarkdown($comment));
         // Mail::to($post->user->email)->send(new CommentPosted($comment));
-        Mail::to($post->user->email)->queue(new CommentPosted($comment));
+
+        // Mail::to($post->user->email)->queue(new CommentPosted($comment));
+        
+        $when = now()->addMinutes(1);
+        Mail::to($post->user->email)->later($when , new CommentPosted($comment));
+        
         return redirect()->back();
     }
 
