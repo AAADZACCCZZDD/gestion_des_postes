@@ -57,7 +57,8 @@ class PostCommentController extends Controller
         // $when = now()->addMinutes(1);
         // Mail::to($post->user->email)->later($when , new CommentPosted($comment));
         
-        PostCommentedJob::dispatch($comment);
+        //job for mailing
+        // PostCommentedJob::dispatch($comment);
 
         return redirect()->back();
     }
