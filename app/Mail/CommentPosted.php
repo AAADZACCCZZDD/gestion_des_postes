@@ -31,7 +31,7 @@ class CommentPosted extends Mailable
     public function build()
     {
         $objet = "Comment post for ". $this->comment->commentable->title ;
-
+        
         return $this
         ->subject($objet)
         // ->attachFromStorageDisk('public', $this->comment->user->image->picture, 'Profile_picture.jpeg')

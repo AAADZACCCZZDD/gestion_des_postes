@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Mail\CommentPosted;
 use Illuminate\Http\Request;
+use App\Jobs\PostCommentedJob;
 use App\Mail\CommentPostedMarkdown;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CommentRequest;
@@ -51,11 +52,13 @@ class PostCommentController extends Controller
         // Mail::to($post->user->email)->send(new CommentPostedMarkdown($comment));
         // Mail::to($post->user->email)->send(new CommentPosted($comment));
 
-        // Mail::to($post->user->email)->queue(new CommentPosted($comment));
+         Mail::to($post->user->email)->queue(new CommentPosted($comment));
         
-        $when = now()->addMinutes(1);
-        Mail::to($post->user->email)->later($when , new CommentPosted($comment));
+        // $when = now()->addMinutes(1);
+        // Mail::to($post->user->email)->later($when , new CommentPosted($comment));
         
+        PostCommentedJob::dispatch($comment);
+
         return redirect()->back();
     }
 
