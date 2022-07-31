@@ -41,14 +41,14 @@ class Comment extends Model
         'user_id'
     ];
 
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function(Comment $comment){
-            Cache::forget("post-{$comment->id}");
-        });
-    } 
+    //     // static::creating(function(Comment $comment){
+    //     //     Cache::forget("post-{$comment->commentable->id}");
+    //     // });
+    // } 
 
     public function scopeDernier(Builder $builder)
     {
