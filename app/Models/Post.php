@@ -82,8 +82,6 @@ class Post extends Model
         static::deleting(function(Post $post){
             Cache::forget('posts');
         });
-        static::creating(function(Post $post){
-            Cache::forget("post-{$post->id}");
-        });
+        
     }
 }

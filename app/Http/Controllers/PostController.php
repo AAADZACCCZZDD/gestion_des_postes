@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Cache::remember('posts', now()->addSeconds(10), function () {
+        $posts = Cache::remember('posts', now()->addSeconds(100), function () {
             return Post::withTrashed()->postWithUserCommentTag()->get();
         });
 
@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Cache::remember("post-{id}", now()->addSeconds(0), function () use ($id) {
+        $post = Cache::remember("post-{id}", now()->addSeconds(10), function () use ($id) {
             return Post::postWithUserCommentTag()->findOrFail($id); // method iger
         });
         return view('posts.show', [

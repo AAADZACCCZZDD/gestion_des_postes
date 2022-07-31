@@ -45,9 +45,9 @@ class Comment extends Model
     {
         parent::boot();
 
-        // static::creating(function(Comment $comment){
-        //     Cache::forget("comment-{id}");
-        // });
+        static::creating(function(Comment $comment){
+            Cache::forget("post-{$comment->id}");
+        });
     } 
 
     public function scopeDernier(Builder $builder)
