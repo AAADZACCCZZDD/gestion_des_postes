@@ -8,7 +8,7 @@
             <li class="list-group-item m-1" style="background-color: rgb(229, 223, 215)">
                 <span class="badge bg-secondary">Id: {{ $post->id }}</span><br>
                 @if (!$post->deleted_at)
-                    <a href="{{ route('posts.show', $post->id) }}">Title : {{ $post->title }}</a> <br>
+                    <p>Title : {{ $post->title }}</p> 
                     <p>Content : {{ $post->content }}</p>
 
                     {{-- <x-tags :tags="$post->tag"></x-tags> --}}
@@ -50,12 +50,13 @@
                         <p>Post is<a style="color:rgb(201, 108, 14)">deactivated </a> </p>
                     @endif
 
+
                     @if ($post->comment_count === 0)
-                        <p>no comment exist</p>
+                        <p><a href="{{ route('posts.show', $post->id) }}">no comment exist</a></p>
                     @elseif($post->comment_count === 1)
-                        <p>{{ $post->comment_count }} comment</p>
+                        <p><a href="{{ route('posts.show', $post->id) }}">{{ $post->comment_count }} comment</a></p>
                     @elseif($post->comment_count >= 1)
-                        <p>{{ $post->comment_count }} comments</p>
+                        <p><a href="{{ route('posts.show', $post->id) }}">{{ $post->comment_count }} comments</a></p>
                     @endif
                 @else
                     <del>

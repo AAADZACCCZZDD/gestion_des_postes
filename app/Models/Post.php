@@ -61,29 +61,27 @@ class Post extends Model
 
         static::addGlobalScope(new LatestScope);
 
-        static::deleting(function(Post $post){
-            $post->comment()->delete();
-            $post->image()->delete();
-        });
+        // static::deleting(function(Post $post){
+        //     $post->comment()->delete();
+        //     $post->image()->delete();
+        // });
 
-        static::restoring(function(Post $post){
-            $post->comment()->restore();
-            $post->image()->restore();
-        });
+        // static::restoring(function(Post $post){
+        //     $post->comment()->restore();
+        //     $post->image()->restore();
+        // });
 
 
-        static::creating(function(Post $post){
-            Cache::forget('posts');
-            // Cache::forget("post-{id}");
-        });
-        static::updating(function(Post $post){
-            Cache::forget('posts');
-        });
-        static::deleting(function(Post $post){
-            Cache::forget('posts');
-        });
-        static::creating(function(Post $post){
-            Cache::forget("post-{$post->id}");
-        });
+        // static::creating(function(Post $post){
+        //     Cache::forget('posts');
+        //     // Cache::forget("post-{id}");
+        // });
+        // static::updating(function(Post $post){
+        //     Cache::forget('posts') ;
+        // });
+        // static::deleting(function(Post $post){
+        //     Cache::forget('posts');
+        // });
+        
     }
 }

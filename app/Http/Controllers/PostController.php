@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Cache::remember('posts', now()->addSeconds(10), function () {
+        $posts = Cache::remember('posts', now()->addSeconds(100), function () {
             return Post::withTrashed()->postWithUserCommentTag()->get();
         });
 
